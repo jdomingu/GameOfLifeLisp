@@ -17,9 +17,7 @@
       
 (defun game-recurse (live-list grid size-sq num-gen)
   (if (zerop num-gen)
-    (progn
-      (draw next-gen grid size-sq)
-      next-gen)
+    next-gen
     (progn
       (setf next-gen '())
       (dolist (grid-cell grid next-gen)
@@ -28,8 +26,8 @@
           (setf currently-alive (member grid-cell live-list :test #'equal))
           (if (will-live num-alive-neighbors currently-alive )
             (setf next-gen (append next-gen (list grid-cell))))))
-      ;(draw next-gen grid size-sq)
-      ;(sleep 0.25)
+      (draw next-gen grid size-sq)
+      (sleep 0.25)
       (game-recurse next-gen grid size-sq (- num-gen 1)))))
 
 ;;Create a two-dimensional list of coordinates based on the grid size.
